@@ -51,6 +51,7 @@ export const drives: Drive[] = [
     ],
     impactMetrics: [
       { label: "Value of Donations", value: "$1,775" },
+      { label: "Clothing Items", value: "500+" },
       { label: "Bags of Clothing", value: "15+ bags" },
       { label: "Families Supported", value: "Multiple families" }
     ],

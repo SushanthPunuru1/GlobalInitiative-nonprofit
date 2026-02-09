@@ -59,10 +59,12 @@ export function DriveCard({ drive, index = 0 }: DriveCardProps) {
               <MapPin size={16} />
               <span>{drive.location}</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <Users size={16} />
-              <span>{drive.volunteersCount} volunteers</span>
-            </div>
+            {drive.volunteersCount > 0 && (
+              <div className="flex items-center gap-1.5">
+                <Users size={16} />
+                <span>{drive.volunteersCount} volunteers</span>
+              </div>
+            )}
           </div>
           <div className="space-y-2">
             <p className="text-sm font-medium">Problem Addressed:</p>
