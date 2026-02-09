@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cream/off-white background matching logo */
+    --background: 40 15% 97%;
+    /* Dark blue foreground matching logo text */
+    --foreground: 220 50% 20%;
+    /* Cream card background */
+    --card: 40 15% 98%;
+    --card-foreground: 220 50% 20%;
+    /* Dark blue primary matching logo */
+    --primary: 220 50% 25%;
+    --primary-foreground: 0 0% 100%;
+    /* Light cream secondary */
+    --secondary: 40 20% 94%;
+    --secondary-foreground: 220 50% 20%;
+    /* Muted cream tones */
+    --muted: 40 15% 95%;
+    --muted-foreground: 220 30% 40%;
+    /* Accent with cream */
+    --accent: 40 20% 94%;
+    --accent-foreground: 220 50% 20%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    /* Subtle borders */
+    --border: 40 10% 88%;
+    --input: 40 10% 88%;
+    /* Dark blue ring for focus */
+    --ring: 220 50% 25%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
