@@ -9,11 +9,11 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="py-16 sm:py-24 bg-gradient-to-b from-primary/10 to-background">
+      <section className="py-20 sm:py-28 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">About The Global Initiative</h1>
-            <p className="text-xl text-muted-foreground">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">About The Global Initiative</h1>
+            <p className="text-xl text-white/90">
               We are a student-led nonprofit organization dedicated to creating real, measurable impact in communities around the world.
             </p>
           </div>

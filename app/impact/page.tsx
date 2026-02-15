@@ -37,14 +37,14 @@ export default function ImpactPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="py-16 sm:py-24 bg-gradient-to-b from-primary/10 to-background">
+      <section className="py-20 sm:py-28 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-4">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-4xl sm:text-5xl font-bold tracking-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight"
             >
               Real Action. Real Impact.
             </motion.h1>
@@ -52,7 +52,7 @@ export default function ImpactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-xl text-muted-foreground"
+              className="text-xl text-white/90"
             >
               Each drive addresses a specific problem with measurable results. Explore our past initiatives and see the difference we&apos;ve made together.
             </motion.p>
@@ -61,9 +61,9 @@ export default function ImpactPage() {
       </section>
 
       {/* Impact Summary */}
-      <section className="py-16 bg-background">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">Lifetime Impact</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Lifetime Impact</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <ImpactMetric
               label="Total Drives"
@@ -71,8 +71,8 @@ export default function ImpactPage() {
               icon={<Target className="h-8 w-8" />}
             />
             <ImpactMetric
-              label="Funds Raised"
-              value={`$${(summary.totalFunds / 1000).toFixed(0)}K`}
+              label="In Supplies & Resources"
+              value={`$${summary.totalFunds.toLocaleString()}`}
               icon={<DollarSign className="h-8 w-8" />}
             />
           </div>
@@ -80,7 +80,7 @@ export default function ImpactPage() {
       </section>
 
       {/* Past Drives Timeline */}
-      <section className="py-16 bg-muted/50">
+      <section className="py-20 bg-muted/40">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-8">
             <div>

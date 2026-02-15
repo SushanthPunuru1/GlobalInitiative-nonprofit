@@ -98,3 +98,22 @@ export function getImpactSummary() {
     totalFunds
   };
 }
+
+// Current/active drive - in progress
+export interface CurrentDrive {
+  title: string;
+  cause: DriveCause;
+  currentCount: number;
+  goal: number;
+  unit: string;
+  description?: string;
+}
+
+export const currentDrive: CurrentDrive | null = {
+  title: "Book Drive",
+  cause: "Education",
+  currentCount: 95,
+  goal: 150,
+  unit: "books",
+  description: "Collecting books to support literacy and learning in our community.",
+};

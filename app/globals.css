@@ -4,33 +4,29 @@
 
 @layer base {
   :root {
-    /* Cream/off-white background matching logo */
-    --background: 40 15% 97%;
-    /* Dark blue foreground matching logo text */
-    --foreground: 220 50% 20%;
-    /* Cream card background */
-    --card: 40 15% 98%;
-    --card-foreground: 220 50% 20%;
-    /* Dark blue primary matching logo */
-    --primary: 220 50% 25%;
-    --primary-foreground: 0 0% 100%;
-    /* Light cream secondary */
-    --secondary: 40 20% 94%;
-    --secondary-foreground: 220 50% 20%;
-    /* Muted cream tones */
-    --muted: 40 15% 95%;
-    --muted-foreground: 220 30% 40%;
-    /* Accent with cream */
-    --accent: 40 20% 94%;
-    --accent-foreground: 220 50% 20%;
+    /* Logo color palette */
+    /* Background (#f8f6ee) */
+    --background: 48 40% 96%;
+    --foreground: 212 60% 20%;
+    --card: 48 35% 98%;
+    --card-foreground: 212 60% 20%;
+    /* Primary: dark blue (#1F497D) - globe & text in logo */
+    --primary: 212 60% 31%;
+    --primary-foreground: 220 40% 98%;
+    /* Secondary: slightly deeper than background (#f8f6ee) */
+    --secondary: 48 35% 92%;
+    --secondary-foreground: 212 60% 25%;
+    /* Muted */
+    --muted: 48 30% 93%;
+    --muted-foreground: 212 25% 45%;
+    --accent: 48 30% 90%;
+    --accent-foreground: 212 60% 28%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-    /* Subtle borders */
-    --border: 40 10% 88%;
-    --input: 40 10% 88%;
-    /* Dark blue ring for focus */
-    --ring: 220 50% 25%;
-    --radius: 0.5rem;
+    --border: 48 20% 90%;
+    --input: 48 20% 92%;
+    --ring: 212 60% 31%;
+    --radius: 0.625rem;
   }
 }
 
@@ -39,6 +35,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
 }

@@ -67,7 +67,7 @@ export default async function DriveDetailPage({ params }: Props) {
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <section className="py-12 bg-gradient-to-b from-primary/10 to-background">
+      <section className="py-16 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <Button asChild variant="ghost" className="mb-6">
             <Link href="/impact">

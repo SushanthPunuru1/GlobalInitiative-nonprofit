@@ -50,11 +50,11 @@ export default function DonatePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="py-16 sm:py-24 bg-gradient-to-b from-primary/10 to-background">
+      <section className="py-20 sm:py-28 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">Support Our Mission</h1>
-            <p className="text-xl text-muted-foreground">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">Support Our Mission</h1>
+            <p className="text-xl text-white/90">
               Your donation helps us create real, measurable impact in communities worldwide. Every contribution makes a difference.
             </p>
           </div>
@@ -75,7 +75,7 @@ export default function DonatePage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Card className="h-full text-center hover:shadow-lg transition-shadow cursor-pointer">
+                  <Card className="h-full text-center hover:shadow-xl hover:border-primary/30 transition-all duration-300 cursor-pointer">
                     <CardHeader>
                       <CardTitle className="text-2xl text-primary">{option.amount}</CardTitle>
                     </CardHeader>

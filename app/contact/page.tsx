@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Mail, Phone, Send } from "lucide-react";
 import { motion } from "framer-motion";
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjbjdol";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -13,12 +15,26 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setStatus("submitting");
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -31,11 +47,11 @@ export default function ContactPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="py-16 sm:py-24 bg-gradient-to-b from-primary/10 to-background">
+      <section className="py-20 sm:py-28 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">Get in Touch</h1>
-            <p className="text-xl text-muted-foreground">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">Get in Touch</h1>
+            <p className="text-xl text-white/90">
               Have questions, ideas, or want to get involved? We&apos;d love to hear from you.
             </p>
           </div>
@@ -125,9 +141,19 @@ export default function ContactPage() {
                           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                       </div>
-                      <Button type="submit" className="w-full">
+                      {status === "success" && (
+                        <p className="text-sm text-green-600 font-medium">
+                          Thank you! Your message was sent. We&apos;ll get back to you soon.
+                        </p>
+                      )}
+                      {status === "error" && (
+                        <p className="text-sm text-red-600 font-medium">
+                          Something went wrong. Please try again or email us directly.
+                        </p>
+                      )}
+                      <Button type="submit" className="w-full" disabled={status === "submitting"}>
                         <Send className="mr-2 h-4 w-4" />
-                        Send Message
+                        {status === "submitting" ? "Sending..." : "Send Message"}
                       </Button>
                     </form>
                   </CardContent>
@@ -154,8 +180,8 @@ export default function ContactPage() {
                       <Mail className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                       <div>
                         <p className="font-semibold">Email</p>
-                        <a href="mailto:info@globalinitiative.org" className="text-sm text-muted-foreground hover:text-primary">
-                          info@globalinitiative.org
+                        <a href="mailto:info.the.global.initiative@gmail.com" className="text-sm text-muted-foreground hover:text-primary">
+                          info.the.global.initiative@gmail.com
                         </a>
                       </div>
                     </div>
@@ -163,22 +189,9 @@ export default function ContactPage() {
                       <Phone className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                       <div>
                         <p className="font-semibold">Phone</p>
-                        <a href="tel:+1234567890" className="text-sm text-muted-foreground hover:text-primary">
-                          (123) 456-7890
+                        <a href="tel:+17065909734" className="text-sm text-muted-foreground hover:text-primary">
+                          (706) 590-9734
                         </a>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold">Address</p>
-                        <p className="text-sm text-muted-foreground">
-                          123 Main Street
-                          <br />
-                          City, State 12345
-                          <br />
-                          United States
-                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -197,26 +210,17 @@ export default function ContactPage() {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Social Media</CardTitle>
+                    <CardTitle>Instagram</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Follow us on social media to stay updated on our latest drives and initiatives.
+                      Follow us to stay updated on our latest drives and initiatives.
                     </p>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
-                        Twitter
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        Facebook
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        Instagram
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        LinkedIn
-                      </Button>
-                    </div>
+                    <Button variant="outline" size="sm" asChild>
+                      <a href="https://www.instagram.com/theglobal_initiative/" target="_blank" rel="noopener noreferrer">
+                        @theglobal_initiative
+                      </a>
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>

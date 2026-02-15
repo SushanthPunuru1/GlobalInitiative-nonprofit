@@ -38,7 +38,7 @@ export function DriveCard({ drive, index = 0 }: DriveCardProps) {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
+      <Card className="h-full flex flex-col hover:shadow-xl transition-all duration-300 border-border/80 overflow-hidden">
         <CardHeader>
           <div className="flex items-start justify-between gap-2 mb-2">
             <Badge variant="outline" className={causeColors[drive.cause] || ""}>
