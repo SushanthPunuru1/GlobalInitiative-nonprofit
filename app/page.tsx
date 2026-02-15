@@ -25,17 +25,20 @@ export default function HomePage() {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] drop-shadow-lg"
+              className="space-y-3"
             >
-              <span className="block">Changing the world.</span>
-              <span className="block mt-2 text-white/95">
-                One problem at a time.
-              </span>
-            </motion.h1>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] drop-shadow-lg uppercase">
+                The Global Initiative
+              </h1>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white/95 tracking-tight leading-snug">
+                <span className="block">Changing the world.</span>
+                <span className="block text-white/90">One problem at a time.</span>
+              </p>
+            </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
