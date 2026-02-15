@@ -26,12 +26,12 @@ export default function HomePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <motion.div
-              initial={false}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="space-y-3"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary leading-[1.1] drop-shadow-lg uppercase [text-shadow:-1px_-1px_0_rgba(255,255,255,0.95),1px_-1px_0_rgba(255,255,255,0.95),-1px_1px_0_rgba(255,255,255,0.95),1px_1px_0_rgba(255,255,255,0.95),0_-2px_0_rgba(255,255,255,0.95),0_2px_0_rgba(255,255,255,0.95),2px_0_0_rgba(255,255,255,0.95),-2px_0_0_rgba(255,255,255,0.95)]">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] drop-shadow-lg uppercase">
                 The Global Initiative
               </h1>
               <p className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white/95 tracking-tight leading-snug">
@@ -40,7 +40,7 @@ export default function HomePage() {
               </p>
             </motion.div>
             <motion.p
-              initial={false}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
               className="text-lg sm:text-xl lg:text-2xl text-white/95 max-w-2xl mx-auto leading-relaxed font-light tracking-wide"
@@ -48,7 +48,7 @@ export default function HomePage() {
               We create real, measurable impact in communities worldwide—one targeted initiative at a time.
             </motion.p>
             <motion.div
-              initial={false}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
               className="flex flex-col sm:flex-row gap-4 justify-center pt-4"

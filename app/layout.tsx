@@ -15,12 +15,6 @@ export const metadata: Metadata = {
   description: "A student-led nonprofit organization dedicated to making real, measurable impact through community-driven initiatives.",
 };
 
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
