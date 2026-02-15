@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { currentDrive } from "@/data/drives";
 import Image from "next/image";
@@ -7,7 +8,25 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, TrendingUp, Heart, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
 
+const HERO_TITLE = "The Global Initiative";
+
 export default function HomePage() {
+  const [typedTitle, setTypedTitle] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+
+  useEffect(() => {
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < HERO_TITLE.length) {
+        setTypedTitle(HERO_TITLE.slice(0, i + 1));
+        i++;
+      } else {
+        setIsTyping(false);
+        clearInterval(timer);
+      }
+    }, 90);
+    return () => clearInterval(timer);
+  }, []);
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -21,6 +40,8 @@ export default function HomePage() {
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary/90" />
+          {/* Soft ambient glow behind hero content */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_40%,rgba(255,255,255,0.4)_0%,rgba(255,255,255,0.15)_40%,transparent_70%)] pointer-events-none" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -31,8 +52,9 @@ export default function HomePage() {
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="space-y-3"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary leading-[1.1] drop-shadow-lg uppercase [text-shadow:-1px_-1px_0_rgba(255,255,255,0.95),1px_-1px_0_rgba(255,255,255,0.95),-1px_1px_0_rgba(255,255,255,0.95),1px_1px_0_rgba(255,255,255,0.95),0_-2px_0_rgba(255,255,255,0.95),0_2px_0_rgba(255,255,255,0.95),2px_0_0_rgba(255,255,255,0.95),-2px_0_0_rgba(255,255,255,0.95)]">
-                The Global Initiative
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary leading-[1.1] drop-shadow-lg uppercase [text-shadow:-1px_-1px_0_rgba(255,255,255,0.95),1px_-1px_0_rgba(255,255,255,0.95),-1px_1px_0_rgba(255,255,255,0.95),1px_1px_0_rgba(255,255,255,0.95),0_-2px_0_rgba(255,255,255,0.95),0_2px_0_rgba(255,255,255,0.95),2px_0_0_rgba(255,255,255,0.95),-2px_0_0_rgba(255,255,255,0.95),0_0_80px_rgba(255,255,255,0.45),0_0_120px_rgba(255,255,255,0.25)]">
+                {typedTitle}
+                {isTyping && <span className="animate-pulse">|</span>}
               </h1>
               <p className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white/95 tracking-tight leading-snug">
                 <span className="block">Changing the world.</span>
@@ -53,13 +75,13 @@ export default function HomePage() {
               transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
               className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
             >
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold shadow-xl text-base px-8 py-6">
+              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold shadow-xl hover:shadow-[0_0_40px_rgba(255,255,255,0.6),0_0_60px_rgba(255,255,255,0.3)] text-base px-8 py-6 transition-shadow duration-300">
                 <Link href="/get-involved">
                   Get Involved
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-white/80 text-white bg-transparent hover:bg-white/10 font-semibold text-base px-8 py-6">
+              <Button asChild size="lg" variant="outline" className="border-2 border-white/80 text-white bg-transparent hover:bg-white/10 hover:shadow-[0_0_35px_rgba(255,255,255,0.4),0_0_50px_rgba(255,255,255,0.2)] font-semibold text-base px-8 py-6 transition-shadow duration-300">
                 <Link href="/impact">View Our Impact</Link>
               </Button>
             </motion.div>
@@ -124,7 +146,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="rounded-2xl border border-border bg-card p-8 shadow-lg"
+                className="rounded-2xl border border-border bg-card p-8 shadow-lg [box-shadow:0_10px_15px_-3px_rgba(0,0,0,0.08),0_4px_6px_-4px_rgba(0,0,0,0.06),0_0_60px_-5px_rgba(31,73,125,0.28),0_0_100px_-15px_rgba(31,73,125,0.15)]"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
@@ -268,8 +290,10 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 sm:py-28 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-20 sm:py-28 bg-primary text-primary-foreground overflow-hidden">
+        {/* Soft inner glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.12)_45%,transparent_70%)] pointer-events-none" />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

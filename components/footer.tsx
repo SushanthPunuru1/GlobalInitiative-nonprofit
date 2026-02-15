@@ -59,7 +59,7 @@ export function Footer() {
             © 2025 The Global Initiative. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
-            Built with <Heart size={14} className="text-red-500 fill-red-500" /> for our community
+            Built with <Heart size={14} className="text-muted-foreground fill-current inline-block" /> for our community
           </p>
         </div>
       </div>
