@@ -31,7 +31,7 @@ export default function HomePage() {
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="space-y-3"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] drop-shadow-lg uppercase">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary leading-[1.1] drop-shadow-lg uppercase [text-shadow:-1px_-1px_0_rgba(255,255,255,0.95),1px_-1px_0_rgba(255,255,255,0.95),-1px_1px_0_rgba(255,255,255,0.95),1px_1px_0_rgba(255,255,255,0.95),0_-2px_0_rgba(255,255,255,0.95),0_2px_0_rgba(255,255,255,0.95),2px_0_0_rgba(255,255,255,0.95),-2px_0_0_rgba(255,255,255,0.95)]">
                 The Global Initiative
               </h1>
               <p className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white/95 tracking-tight leading-snug">
