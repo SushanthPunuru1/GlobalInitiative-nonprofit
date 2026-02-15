@@ -13,6 +13,10 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "The Global Initiative - Changing the world. One problem at a time.",
   description: "A student-led nonprofit organization dedicated to making real, measurable impact through community-driven initiatives.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
