@@ -5,7 +5,7 @@ import { getDriveBySlug, getAllDrives } from "@/data/drives";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, MapPin, Users, DollarSign, ArrowLeft, Share2, CheckCircle2 } from "lucide-react";
+import { Calendar, MapPin, Users, DollarSign, ArrowLeft, CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
 
 type Props = {
@@ -239,28 +239,6 @@ export default async function DriveDetailPage({ params }: Props) {
               </CardContent>
             </Card>
 
-            {/* Share Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Share This Impact</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-3">
-                  <Button variant="outline" size="sm">
-                    <Share2 className="mr-2 h-4 w-4" />
-                    Share on Twitter
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Share2 className="mr-2 h-4 w-4" />
-                    Share on Facebook
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Share2 className="mr-2 h-4 w-4" />
-                    Copy Link
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
