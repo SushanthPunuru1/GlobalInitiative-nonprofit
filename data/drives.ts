@@ -112,7 +112,7 @@ export interface CurrentDrive {
 export const currentDrive: CurrentDrive | null = {
   title: "Book Drive",
   cause: "Education",
-  currentCount: 95,
+  currentCount: 60,
   goal: 150,
   unit: "books",
   description: "Collecting books to support literacy and learning in our community.",

@@ -118,7 +118,7 @@ export default function DonatePage() {
           <div className="max-w-3xl mx-auto text-center space-y-4">
             <h2 className="text-2xl font-bold">Tax-Deductible Donations</h2>
             <p className="text-muted-foreground">
-              The Global Initiative is a registered 501(c)(3) nonprofit organization. All donations are tax-deductible to the extent allowed by law. You will receive a receipt for your donation for tax purposes.
+              The Global Initiative has filed IRS Form 1023-EZ to obtain 501(c)(3) nonprofit status. Tax-deductibility of donations depends on the final IRS determination and applicable law. You will receive a receipt for your donation for your records.
             </p>
           </div>
         </div>
