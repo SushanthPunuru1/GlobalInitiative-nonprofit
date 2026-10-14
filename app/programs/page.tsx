@@ -1,183 +1,125 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { BookOpen, Heart, Leaf, Shield, Users, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { causeInk } from "@/components/ui/badge";
+import { drives, type DriveCause } from "@/data/drives";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Programs | The Global Initiative",
+  description:
+    "The five areas we run drives in, and what we have actually done in each one so far.",
+};
+
+const areas: { cause: DriveCause; blurb: string; planned: string }[] = [
+  {
+    cause: "Education",
+    blurb:
+      "Books, supplies and the things a student needs before they can learn anything. The cheapest problem on this list to make a dent in.",
+    planned: "Next: school supplies ahead of the fall term.",
+  },
+  {
+    cause: "Community",
+    blurb:
+      "Clothing, household goods and whatever a family nearby is short of. Close enough that we can deliver it ourselves.",
+    planned: "Next: a winter coat collection.",
+  },
+  {
+    cause: "Health",
+    blurb:
+      "Hygiene kits and over-the-counter basics for clinics and shelters that hand them out directly.",
+    planned: "Not started yet. We'd need a partner clinic first.",
+  },
+  {
+    cause: "Environment",
+    blurb:
+      "Cleanups and the unglamorous maintenance work that local parks and waterways never have enough hands for.",
+    planned: "Not started yet. Looking for a site that wants recurring help.",
+  },
+  {
+    cause: "Relief",
+    blurb:
+      "Supply collection after a storm or an emergency, moved fast to groups already on the ground.",
+    planned: "Not started yet. Stood up only when something happens.",
+  },
+];
+
 export default function ProgramsPage() {
-  const programs = [
-    {
-      icon: BookOpen,
-      title: "Education",
-      description: "Supporting students and schools with resources, tutoring, and educational opportunities to bridge learning gaps and create pathways to success.",
-      color: "bg-blue-100 text-blue-800 border-blue-200",
-      examples: [
-        "Backpack & Books Initiative",
-        "Virtual Tutoring Program",
-        "Tech Access for Students",
-      ],
-    },
-    {
-      icon: Heart,
-      title: "Health",
-      description: "Improving access to healthcare services, screenings, and health education in underserved communities to promote wellness and prevention.",
-      color: "bg-red-100 text-red-800 border-red-200",
-      examples: [
-        "Community Health Screening Days",
-        "Health Education Workshops",
-        "Mental Health Support Programs",
-      ],
-    },
-    {
-      icon: Leaf,
-      title: "Environment",
-      description: "Protecting our planet through cleanup initiatives, conservation efforts, and environmental education to create a sustainable future.",
-      color: "bg-green-100 text-green-800 border-green-200",
-      examples: [
-        "Coastal Cleanup Events",
-        "Community Garden Projects",
-        "Environmental Education Programs",
-      ],
-    },
-    {
-      icon: Shield,
-      title: "Relief",
-      description: "Responding to emergencies and natural disasters with immediate aid, supplies, and support for affected communities.",
-      color: "bg-orange-100 text-orange-800 border-orange-200",
-      examples: [
-        "Hurricane Relief Funds",
-        "Winter Warmth Drives",
-        "Emergency Supply Distribution",
-      ],
-    },
-    {
-      icon: Users,
-      title: "Community",
-      description: "Building stronger communities through local initiatives, partnerships, and programs that address unique neighborhood needs.",
-      color: "bg-purple-100 text-purple-800 border-purple-200",
-      examples: [
-        "Community Garden Projects",
-        "Local Food Security Programs",
-        "Neighborhood Improvement Initiatives",
-      ],
-    },
-  ];
+  const runCount = (cause: DriveCause) => drives.filter((d) => d.cause === cause).length;
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative py-20 sm:py-28 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.12)_45%,transparent_70%)] pointer-events-none" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">Our Programs</h1>
-            <p className="text-xl text-white/90">
-              We address challenges across five key areas, creating targeted, measurable impact in each.
-            </p>
-          </div>
+    <div>
+      <section className="border-b-2 border-ink">
+        <div className="container mx-auto px-4 pb-12 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8">
+          <h1 className="max-w-[14ch] font-display text-poster font-extrabold text-ink">
+            Five things we collect
+          </h1>
+          <p className="mt-8 max-w-reading text-lg leading-relaxed text-muted-foreground">
+            We&apos;ve run drives in two of these so far. The other three are
+            areas we&apos;re set up for but haven&apos;t started — we&apos;d
+            rather say that plainly than list initiatives that don&apos;t exist.
+          </p>
         </div>
       </section>
 
-      {/* Programs Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {programs.map((program, index) => (
-              <motion.div
-                key={program.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="h-full flex flex-col">
-                  <CardHeader>
-                    <div className="flex items-center gap-3 mb-4">
-                      <program.icon className="h-8 w-8 text-primary" />
-                      <Badge variant="outline" className={program.color}>
-                        {program.title}
-                      </Badge>
+      <section className="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
+        <div className="space-y-12">
+          {areas.map((area) => {
+            const count = runCount(area.cause);
+            return (
+              <article key={area.cause} className="border-t-2 border-ink pt-8">
+                <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-start">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h2 className="font-display text-headline font-extrabold text-ink">
+                        {area.cause}
+                      </h2>
+                      <span
+                        className={`rounded-sm border-2 border-ink px-2 py-0.5 text-xs font-semibold tracking-tight ${
+                          causeInk[area.cause] ?? "bg-paper text-ink"
+                        }`}
+                      >
+                        {count > 0
+                          ? `${count} drive${count === 1 ? "" : "s"} run`
+                          : "Not started"}
+                      </span>
                     </div>
-                    <CardTitle>{program.title}</CardTitle>
-                    <CardDescription>{program.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-1">
-                    <div className="space-y-2">
-                      <p className="text-sm font-semibold">Example Initiatives:</p>
-                      <ul className="space-y-1 text-sm text-muted-foreground">
-                        {program.examples.map((example, idx) => (
-                          <li key={idx} className="flex items-start gap-2">
-                            <ArrowRight className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
-                            <span>{example}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                    <p className="mt-4 max-w-reading leading-relaxed text-muted-foreground">
+                      {area.blurb}
+                    </p>
+                    <p className="mt-3 max-w-reading text-sm text-muted-foreground">
+                      {area.planned}
+                    </p>
+                  </div>
 
-      {/* How We Work */}
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-3xl font-bold text-center">How We Work</h2>
-            <Card>
-              <CardContent className="pt-6">
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="font-semibold mb-2">1. Identify the Problem</h3>
-                    <p className="text-sm text-muted-foreground">
-                      We work with communities and partners to identify specific, measurable challenges that need addressing.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-2">2. Develop Solutions</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Through research, community input, and collaboration with local organizations, we design targeted solutions.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-2">3. Execute with Transparency</h3>
-                    <p className="text-sm text-muted-foreground">
-                      We share our process, challenges, and learnings as we work toward our goals.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-2">4. Measure Impact</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Every program includes clear metrics and outcomes that we track and report publicly.
-                    </p>
-                  </div>
+                  {count > 0 && (
+                    <Button asChild variant="outline" size="sm">
+                      <Link href="/impact">See the {area.cause.toLowerCase()} drives</Link>
+                    </Button>
+                  )}
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold">Get Involved</h2>
-            <p className="text-muted-foreground">
-              Interested in supporting one of our programs or starting a new initiative? We&apos;d love to hear from you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg">
-                <Link href="/get-involved">Get Involved</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/impact">View Past Drives</Link>
-              </Button>
-            </div>
+      <section className="border-t-2 border-ink bg-navy text-paper">
+        <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+          <h2 className="max-w-[20ch] font-display text-banner font-extrabold">
+            Know a group that needs one of these?
+          </h2>
+          <p className="mt-6 max-w-reading leading-relaxed text-paper/85">
+            The hardest part of starting a drive isn&apos;t the collecting.
+            It&apos;s finding an organization that will actually get the things
+            to the people who need them. If you know one, tell us.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" variant="secondary">
+              <Link href="/contact">Tell us about them</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/impact">See past drives</Link>
+            </Button>
           </div>
         </div>
       </section>

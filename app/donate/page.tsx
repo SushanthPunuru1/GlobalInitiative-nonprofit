@@ -1,145 +1,111 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Shield, TrendingUp } from "lucide-react";
-import { motion } from "framer-motion";
+import { getImpactSummary } from "@/data/drives";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Donate | The Global Initiative",
+  description:
+    "What money pays for at a student-run nonprofit, and how to give.",
+};
 
 export default function DonatePage() {
-  const whyDonate = [
+  const summary = getImpactSummary();
+
+  // What cash actually buys here. Specific beats inspirational.
+  const uses = [
     {
-      icon: TrendingUp,
-      title: "Measurable Impact",
-      description: "Every dollar is tracked and reported. See exactly how your contribution creates change.",
+      title: "Boxes, bags and tape",
+      body: "A drive the size of our last one takes about fifteen sturdy boxes and more packing tape than you'd think. This is the single most common thing we run short of.",
     },
     {
-      icon: Shield,
-      title: "Transparency",
-      description: "We share detailed reports on how funds are used, ensuring accountability and trust.",
+      title: "Printing",
+      body: "Flyers for the school hallways and the neighborhood. Nothing moves a drive faster than people simply knowing it's happening.",
     },
     {
-      icon: Heart,
-      title: "Direct Impact",
-      description: "Your donation goes directly to programs and drives, making a tangible difference in communities.",
+      title: "Gas for the delivery",
+      body: "Everything we collect gets driven to the receiving organization at the end. That trip comes out of someone's pocket right now.",
     },
   ];
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative py-20 sm:py-28 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.12)_45%,transparent_70%)] pointer-events-none" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">Support Our Mission</h1>
-            <p className="text-xl text-white/90">
-              Your donation helps us create real, measurable impact in communities worldwide. Every contribution makes a difference.
-            </p>
+    <div>
+      <section className="border-b-2 border-ink">
+        <div className="container mx-auto px-4 pb-12 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8">
+          <h1 className="max-w-[16ch] font-display text-poster font-extrabold text-ink">
+            Small amounts go far here
+          </h1>
+          <p className="mt-8 max-w-reading text-lg leading-relaxed text-muted-foreground">
+            Nobody at The Global Initiative is paid. Money doesn&apos;t cover
+            salaries, offices or software, because we don&apos;t have any. It
+            covers the supplies that make a collection drive possible.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg">
+              <a href="mailto:info.the.global.initiative@gmail.com?subject=I%20want%20to%20donate">
+                Email us to give
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/impact">See where the last $2,475 went</Link>
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Donate Button */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-xl mx-auto text-center space-y-6"
-          >
-            <p className="text-lg text-muted-foreground">
-              Every contribution helps us create real impact. Click below to donate.
-            </p>
-            <Button size="lg" className="text-lg px-12 py-6" onClick={(e) => e.preventDefault()}>
-              Donate Now
-            </Button>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Why Donate */}
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Why Donate?</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {whyDonate.map((reason, index) => (
-                <motion.div
-                  key={reason.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Card className="h-full text-center">
-                    <CardHeader>
-                      <reason.icon className="h-8 w-8 text-primary mx-auto mb-4" />
-                      <CardTitle>{reason.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">{reason.description}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+      <section className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <h2 className="font-display text-banner font-extrabold text-ink">
+          What it pays for
+        </h2>
+        <div className="mt-12 grid gap-10 sm:grid-cols-3">
+          {uses.map((use) => (
+            <div key={use.title} className="border-t-2 border-ink pt-5">
+              <h3 className="font-display text-xl font-extrabold text-ink">{use.title}</h3>
+              <p className="mt-3 leading-relaxed text-muted-foreground">{use.body}</p>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* How Donations Help */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto space-y-6">
-            <h2 className="text-3xl font-bold text-center">How Your Donation Helps</h2>
-            <Card>
-              <CardContent className="pt-6">
-                <p className="text-muted-foreground leading-relaxed">
-                  Your donation supports our drives, programs, and community initiatives—helping us create real, measurable impact for those in need.
-                </p>
-              </CardContent>
-            </Card>
-            <p className="text-sm text-center text-muted-foreground">
-              See the difference we&apos;ve made on our{" "}
-              <Link href="/impact" className="text-primary hover:underline">
-                Impact page
-              </Link>
-              .
+      <section className="border-y-2 border-ink bg-marigold">
+        <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <p className="font-display text-headline font-extrabold text-ink">
+              Donated goods are still the bigger half.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Tax Information */}
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h2 className="text-2xl font-bold">Tax-Deductible Donations</h2>
-            <p className="text-muted-foreground">
-              The Global Initiative has filed IRS Form 1023-EZ to obtain 501(c)(3) nonprofit status. Tax-deductibility of donations depends on the final IRS determination and applicable law. You will receive a receipt for your donation for your records.
+            <p className="mt-5 leading-relaxed text-ink/80">
+              Across {summary.totalDrives} drives we&apos;ve moved $
+              {summary.totalFunds.toLocaleString()} worth of clothing and books
+              that people gave directly. If you&apos;d rather give things than
+              money, that works just as well — and during an open drive, better.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold">Ready to Make a Difference?</h2>
-            <p className="text-muted-foreground">
-              Your support enables us to continue creating real, measurable impact in communities worldwide.
-            </p>
-            <Button size="lg" className="text-lg px-8" onClick={(e) => e.preventDefault()}>
-              Donate Now
+            <Button asChild className="mt-7">
+              <Link href="/get-involved">Give goods instead</Link>
             </Button>
-            <p className="text-sm text-muted-foreground">
-              Have questions? <Link href="/contact" className="text-primary hover:underline">Contact us</Link>
-            </p>
           </div>
         </div>
+      </section>
+
+      <section className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <h2 className="font-display text-headline font-extrabold text-ink">
+          About tax deductions
+        </h2>
+        <p className="mt-5 max-w-reading leading-relaxed text-muted-foreground">
+          The Global Initiative has filed IRS Form 1023-EZ to obtain 501(c)(3)
+          nonprofit status. Whether a donation is tax-deductible depends on the
+          final IRS determination and on applicable law. You&apos;ll receive a
+          receipt for your records either way.
+        </p>
+        <p className="mt-6 text-sm text-muted-foreground">
+          Questions before you give?{" "}
+          <Link
+            href="/contact"
+            className="font-semibold text-navy underline decoration-2 underline-offset-4 hover:decoration-marigold"
+          >
+            Ask us anything
+          </Link>
+          .
+        </p>
       </section>
     </div>
   );

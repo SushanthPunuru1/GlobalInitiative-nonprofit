@@ -51,8 +51,8 @@ export function Logo({
       {showText && (
         <span
           className={cn(
-            "font-bold tracking-tight whitespace-nowrap",
-            variant === "light" ? "text-white" : "text-primary",
+            "font-display font-extrabold tracking-tight whitespace-nowrap",
+            variant === "light" ? "text-paper" : "text-ink",
             textSize === "lg" && "text-lg",
             textSize === "xl" && "text-xl",
             textSize === "2xl" && "text-2xl sm:text-3xl",
@@ -68,7 +68,7 @@ export function Logo({
   );
 
   const wrapperClass = cn(
-    "flex gap-3 group hover:opacity-90 transition-opacity",
+    "flex gap-3 group hover:opacity-80 transition-opacity",
     layoutClass
   );
 

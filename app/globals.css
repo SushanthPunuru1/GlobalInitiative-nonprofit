@@ -2,31 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  The Global Initiative — print-shop palette.
+
+  The site is built to look like something a student actually printed: a
+  limited set of flat inks laid down on cream paper. Colours are kept few on
+  purpose. If you need a new one, try reusing an existing ink first.
+*/
+
 @layer base {
   :root {
-    /* Logo color palette */
-    /* Background (#f8f6ee) */
-    --background: 48 40% 96%;
-    --foreground: 212 60% 20%;
-    --card: 48 35% 98%;
-    --card-foreground: 212 60% 20%;
-    /* Primary: dark blue (#1F497D) - globe & text in logo */
-    --primary: 212 60% 31%;
-    --primary-foreground: 220 40% 98%;
-    /* Secondary: slightly deeper than background (#f8f6ee) */
-    --secondary: 48 35% 92%;
-    --secondary-foreground: 212 60% 25%;
-    /* Muted */
-    --muted: 48 30% 93%;
-    --muted-foreground: 212 25% 45%;
-    --accent: 48 30% 90%;
-    --accent-foreground: 212 60% 28%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 48 20% 90%;
-    --input: 48 20% 92%;
-    --ring: 212 60% 31%;
-    --radius: 0.625rem;
+    /* --- The inks ------------------------------------------------------ */
+    --paper: 48 40% 96%;        /* #F8F6EE — from the logo background      */
+    --paper-deep: 46 32% 91%;   /* a second, slightly darker sheet         */
+    --ink: 210 55% 16%;         /* #12293F — body text, rules, hard shadow */
+    --navy: 212 60% 31%;        /* #1F497D — the logo blue                 */
+    --marigold: 38 76% 54%;     /* #E3A235 — the warm ink                  */
+    --brick: 9 60% 47%;         /* #C0462F                                 */
+    --moss: 97 21% 42%;         /* #5F8252                                 */
+
+    /* --- Mapped to the component token names --------------------------- */
+    --background: var(--paper);
+    --foreground: var(--ink);
+    --card: 48 44% 98%;
+    --card-foreground: var(--ink);
+    --primary: var(--navy);
+    --primary-foreground: var(--paper);
+    --secondary: var(--paper-deep);
+    --secondary-foreground: var(--ink);
+    --muted: var(--paper-deep);
+    --muted-foreground: 210 24% 38%;
+    --accent: var(--marigold);
+    --accent-foreground: var(--ink);
+    --destructive: var(--brick);
+    --destructive-foreground: var(--paper);
+    --border: var(--ink);
+    --input: var(--ink);
+    --ring: var(--navy);
+    --radius: 0.25rem;
   }
 }
 
@@ -34,7 +47,103 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: var(--font-text), ui-sans-serif, system-ui, sans-serif;
+    /*
+      A faint paper grain. Low enough that it reads as texture rather than
+      noise; it disappears entirely on a cheap screen, which is fine.
+    */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    text-wrap: balance;
+  }
+
+  /* Numbers line up in columns wherever they're tallied. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 3px solid hsl(var(--navy));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /*
+    The one structural device on the site: a block of paper with a hard ink
+    border and a flat offset shadow, like a print with a drop shadow knocked
+    out by hand. No blur — blurred grey shadows are the thing we're avoiding.
+  */
+  .block-print {
+    @apply border-2 border-ink bg-card;
+    box-shadow: 5px 5px 0 0 hsl(var(--ink));
+  }
+
+  .block-print-sm {
+    @apply border-2 border-ink bg-card;
+    box-shadow: 3px 3px 0 0 hsl(var(--ink));
+  }
+
+  /*
+    The site's one piece of non-user-triggered motion: the masthead settles
+    into place once, on load. Nothing else on any page animates by itself.
+  */
+  .rise {
+    animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* A heavy rule used to separate sections instead of a card boundary. */
+  .rule-heavy {
+    @apply border-t-2 border-ink;
+  }
+
+  /*
+    Photos are pinned up rather than placed. The rotation is tiny and
+    alternates, so a grid of them looks hand-arranged, not skewed.
+  */
+  .pinned {
+    transform: rotate(-1.1deg);
+  }
+
+  .pinned-alt {
+    transform: rotate(0.9deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .pinned,
+  .pinned-alt {
+    transform: none;
   }
 }

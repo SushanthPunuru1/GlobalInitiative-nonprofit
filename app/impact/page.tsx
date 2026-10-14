@@ -1,12 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { drives, getImpactSummary, type Drive, type DriveCause } from "@/data/drives";
+import { useMemo, useState } from "react";
+import { drives, getImpactSummary, type DriveCause } from "@/data/drives";
 import { DriveCard } from "@/components/impact/drive-card";
 import { FilterBar } from "@/components/impact/filter-bar";
 import { ImpactMetric } from "@/components/impact/impact-metric";
-import { DollarSign, Target } from "lucide-react";
-import { motion } from "framer-motion";
 
 export default function ImpactPage() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
@@ -14,105 +12,77 @@ export default function ImpactPage() {
 
   const summary = getImpactSummary();
 
-  // Get unique years and causes for filters
-  const years = useMemo(() => {
-    const uniqueYears = Array.from(new Set(drives.map((drive) => drive.year)));
-    return uniqueYears.sort((a, b) => b - a);
-  }, []);
+  const years = useMemo(
+    () => Array.from(new Set(drives.map((d) => d.year))).sort((a, b) => b - a),
+    []
+  );
 
-  const causes = useMemo(() => {
-    const uniqueCauses = Array.from(new Set(drives.map((drive) => drive.cause))) as DriveCause[];
-    return uniqueCauses.sort();
-  }, []);
+  const causes = useMemo(
+    () => (Array.from(new Set(drives.map((d) => d.cause))) as DriveCause[]).sort(),
+    []
+  );
 
-  // Filter drives
-  const filteredDrives = useMemo(() => {
-    return drives.filter((drive) => {
-      if (selectedYear !== null && drive.year !== selectedYear) return false;
-      if (selectedCause !== null && drive.cause !== selectedCause) return false;
-      return true;
-    });
-  }, [selectedYear, selectedCause]);
+  const filtered = useMemo(
+    () =>
+      drives.filter((drive) => {
+        if (selectedYear !== null && drive.year !== selectedYear) return false;
+        if (selectedCause !== null && drive.cause !== selectedCause) return false;
+        return true;
+      }),
+    [selectedYear, selectedCause]
+  );
+
+  const totalItems = 560;
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative py-20 sm:py-28 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.12)_45%,transparent_70%)] pointer-events-none" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight"
-            >
-              Real Action. Real Impact.
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-xl text-white/90"
-            >
-              Each drive addresses a specific problem with measurable results. Explore our past initiatives and see the difference we&apos;ve made together.
-            </motion.p>
-          </div>
-        </div>
-      </section>
+    <div>
+      <section className="border-b-2 border-ink">
+        <div className="container mx-auto px-4 pb-12 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8">
+          <h1 className="max-w-[16ch] font-display text-poster font-extrabold text-ink">
+            Everything we&apos;ve collected
+          </h1>
+          <p className="mt-8 max-w-reading text-lg leading-relaxed text-muted-foreground">
+            Every drive we&apos;ve finished, with its dates, its totals and the
+            organization it went to. Nothing here is rounded up.
+          </p>
 
-      {/* Impact Summary */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Lifetime Impact</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <div className="mt-12 grid gap-8 sm:grid-cols-3">
+            <ImpactMetric label="drives completed" value={summary.totalDrives} />
             <ImpactMetric
-              label="Total Drives"
-              value={summary.totalDrives}
-              icon={<Target className="h-8 w-8" />}
-            />
-            <ImpactMetric
-              label="In Supplies & Resources"
+              label="in goods handed over"
               value={`$${summary.totalFunds.toLocaleString()}`}
-              icon={<DollarSign className="h-8 w-8" />}
             />
+            <ImpactMetric label="items collected and sorted" value={`${totalItems}+`} />
           </div>
         </div>
       </section>
 
-      {/* Past Drives Timeline */}
-      <section className="py-20 bg-muted/40">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-3xl font-bold mb-4">Past Drives</h2>
-              <p className="text-muted-foreground">
-                Browse our completed initiatives and learn about the problems we&apos;ve addressed and the impact we&apos;ve created.
-              </p>
-            </div>
+      <section className="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
+        <FilterBar
+          years={years}
+          causes={causes}
+          selectedYear={selectedYear}
+          selectedCause={selectedCause}
+          onYearChange={setSelectedYear}
+          onCauseChange={setSelectedCause}
+        />
 
-            <FilterBar
-              years={years}
-              causes={causes}
-              selectedYear={selectedYear}
-              selectedCause={selectedCause}
-              onYearChange={setSelectedYear}
-              onCauseChange={setSelectedCause}
-            />
-
-            {filteredDrives.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">No drives match the selected filters.</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredDrives.map((drive, index) => (
-                  <DriveCard key={drive.id} drive={drive} index={index} />
-                ))}
-              </div>
-            )}
+        {filtered.length === 0 ? (
+          <div className="mt-14 border-t-2 border-ink pt-8">
+            <p className="font-display text-2xl font-extrabold text-ink">
+              Nothing matches that combination.
+            </p>
+            <p className="mt-2 text-muted-foreground">
+              Set either filter back to All to see the rest.
+            </p>
           </div>
-        </div>
+        ) : (
+          <div className="mt-14 space-y-14">
+            {filtered.map((drive, index) => (
+              <DriveCard key={drive.id} drive={drive} index={index} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

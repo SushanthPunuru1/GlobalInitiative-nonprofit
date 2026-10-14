@@ -1,144 +1,123 @@
-"use client";
-
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Target, Heart, Users, Lightbulb } from "lucide-react";
-import { motion } from "framer-motion";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About | The Global Initiative",
+  description:
+    "A student-led nonprofit that runs collection drives, hands everything to partner organizations, and publishes the totals.",
+};
+
 export default function AboutPage() {
+  // What we actually hold ourselves to, written as commitments rather than
+  // one-word virtues. A value nobody could fail isn't a value.
+  const commitments = [
+    {
+      title: "We finish what we start",
+      body: "A drive gets an end date before it gets announced. Both of ours ran to that date and closed. We'd rather run two drives properly than announce six.",
+    },
+    {
+      title: "We don't handle what we can't place",
+      body: "Every drive has a receiving organization lined up before the first box comes in. Collecting things with nowhere to send them just moves a problem into someone's garage.",
+    },
+    {
+      title: "We publish the real number",
+      body: "If a figure is on this site, it came from something we counted or a value the receiving organization gave us. We don't round up and we don't estimate.",
+    },
+    {
+      title: "We stay out of the way",
+      body: "The organizations we give to have been doing this far longer than we have. Our job ends when the boxes are delivered, and that's the right place for it to end.",
+    },
+  ];
+
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative py-20 sm:py-28 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.12)_45%,transparent_70%)] pointer-events-none" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">About The Global Initiative</h1>
-            <p className="text-xl text-white/90">
-              We are a student-led nonprofit organization dedicated to creating real, measurable impact in communities around the world.
+    <div>
+      <section className="border-b-2 border-ink">
+        <div className="container mx-auto px-4 pb-12 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8">
+          <h1 className="max-w-[16ch] font-display text-poster font-extrabold text-ink">
+            Students with a van and a spreadsheet
+          </h1>
+          <p className="mt-8 max-w-reading text-lg leading-relaxed text-muted-foreground">
+            The Global Initiative is a student-led nonprofit. We collect things
+            people need, sort them, and hand them to organizations that already
+            know who needs them. Then we publish what it added up to.
+          </p>
+        </div>
+      </section>
+
+      <section className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid items-start gap-12 md:grid-cols-2">
+          <div>
+            <h2 className="font-display text-banner font-extrabold text-ink">
+              Why it works this way
+            </h2>
+            <p className="mt-6 max-w-reading leading-relaxed text-muted-foreground">
+              Most of what a nonprofit does well comes from years of
+              relationships we don&apos;t have yet. What we do have is a school,
+              a neighborhood, and a few hundred people willing to clear out a
+              closet if someone asks them to.
             </p>
+            <p className="mt-4 max-w-reading leading-relaxed text-muted-foreground">
+              So that&apos;s the job we took: be the part that collects. Find an
+              organization that&apos;s already good at the rest, and bring them
+              more than they had. It&apos;s a narrow role, and it&apos;s one we
+              can actually do well while we&apos;re still in school.
+            </p>
+          </div>
+
+          <div className="pinned-alt">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-sm border-2 border-ink bg-paper-deep shadow-print-lg">
+              <Image
+                src="/photos/community-driven.png"
+                alt="Volunteers working together on a donation drive"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto space-y-12">
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card>
-                <CardHeader>
-                  <Target className="h-8 w-8 text-primary mb-4" />
-                  <CardTitle>Our Mission</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    To create real, measurable impact by addressing specific problems in communities worldwide. We believe that change happens one problem at a time, and by focusing on tangible, quantifiable outcomes, we can transform lives and inspire others to do the same.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <Lightbulb className="h-8 w-8 text-primary mb-4" />
-                  <CardTitle>Our Vision</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    A world where every community has the resources and support needed to thrive. We envision a network of students and volunteers who work together to address pressing challenges with transparency, accountability, and measurable results.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Values */}
-            <div>
-              <h2 className="text-3xl font-bold text-center mb-12">Our Values</h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                {[
-                  {
-                    icon: Target,
-                    title: "Impact-Driven",
-                    description: "Every initiative we undertake is designed to create measurable, tangible results. We track our outcomes and share them transparently.",
-                  },
-                  {
-                    icon: Heart,
-                    title: "Compassion",
-                    description: "We approach every problem with empathy and understanding, recognizing that behind every statistic is a real person with real needs.",
-                  },
-                  {
-                    icon: Users,
-                    title: "Collaboration",
-                    description: "We believe in the power of working together—with communities, volunteers, partners, and supporters—to achieve common goals.",
-                  },
-                ].map((value, index) => (
-                  <motion.div
-                    key={value.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <Card className="h-full">
-                      <CardHeader>
-                        <value.icon className="h-8 w-8 text-primary mb-4" />
-                        <CardTitle>{value.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground">{value.description}</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+      <section className="border-y-2 border-ink bg-paper-deep">
+        <div className="container mx-auto px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+          <h2 className="font-display text-banner font-extrabold text-ink">
+            What we hold ourselves to
+          </h2>
+          <div className="mt-12 grid gap-10 sm:grid-cols-2">
+            {commitments.map((item) => (
+              <div key={item.title} className="border-t-2 border-ink pt-5">
+                <h3 className="font-display text-xl font-extrabold text-ink">
+                  {item.title}
+                </h3>
+                <p className="mt-3 max-w-reading leading-relaxed text-muted-foreground">
+                  {item.body}
+                </p>
               </div>
-            </div>
-
-            {/* Our Approach */}
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Our Approach</h2>
-              <Card>
-                <CardContent className="pt-6">
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    At The Global Initiative, we take a data-driven, problem-solving approach to creating impact:
-                  </p>
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex gap-3">
-                      <span className="text-primary font-semibold">1.</span>
-                      <span><strong>Identify specific problems</strong> with clear, measurable challenges in communities around the world.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-primary font-semibold">2.</span>
-                      <span><strong>Develop targeted solutions</strong> through research, community engagement, and partnership with local organizations.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-primary font-semibold">3.</span>
-                      <span><strong>Execute with transparency</strong>, sharing our process, challenges, and learnings along the way.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-primary font-semibold">4.</span>
-                      <span><strong>Measure and report</strong> our outcomes, ensuring accountability and providing a clear picture of our impact.</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* CTA */}
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl font-bold">Join Us</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Whether you&apos;re a student looking to make a difference, a volunteer wanting to contribute, or a supporter who believes in our mission, we&apos;d love to have you on board.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg">
-                  <Link href="/get-involved">Get Involved</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg">
-                  <Link href="/impact">See Our Impact</Link>
-                </Button>
-              </div>
-            </div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      <section className="container mx-auto px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <h2 className="max-w-[20ch] font-display text-banner font-extrabold text-ink">
+          Where we&apos;re going
+        </h2>
+        <p className="mt-6 max-w-reading leading-relaxed text-muted-foreground">
+          More drives, and more kinds of them. We&apos;re set up to run
+          collections for health, environment and relief work as well, and
+          haven&apos;t yet — mostly because we haven&apos;t found the right
+          organization on the receiving end. That&apos;s the thing we&apos;re
+          looking for, more than volunteers or money.
+        </p>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button asChild size="lg">
+            <Link href="/get-involved">Get involved</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/impact">See what we&apos;ve done</Link>
+          </Button>
         </div>
       </section>
     </div>

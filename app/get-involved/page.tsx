@@ -1,174 +1,93 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Heart, Mail, Calendar, MapPin, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Get involved | The Global Initiative",
+  description:
+    "Four ways to help a drive: bring something in, give your time, introduce us to an organization, or fund the next one.",
+};
+
+const ways = [
+  {
+    title: "Bring something in",
+    body: "The simplest one. When a drive is open, clear out what you aren't using and get it to us. Clean and usable is the only bar.",
+    detail: "Email us and we'll tell you where and when to drop it off.",
+    href: "/contact",
+    action: "Arrange a drop-off",
+  },
+  {
+    title: "Give a few hours",
+    body: "Sorting by size, boxing, loading, delivering. A drive takes one long afternoon at the end, and that afternoon is where it's won or lost.",
+    detail: "No experience, no commitment beyond the day you show up for.",
+    href: "/contact",
+    action: "Get on the list",
+  },
+  {
+    title: "Introduce us to an organization",
+    body: "This is the one we need most. If you know a nonprofit, shelter, clinic or school that could use a few hundred of something, tell us what they need.",
+    detail: "A name and a contact is enough. We'll take it from there.",
+    href: "/contact",
+    action: "Send us a name",
+  },
+  {
+    title: "Fund the next one",
+    body: "Money covers the parts of a drive nobody donates: boxes, bags, printing, gas to make the delivery.",
+    detail: "Small amounts go a long way at this size.",
+    href: "/donate",
+    action: "Donate",
+  },
+];
 
 export default function GetInvolvedPage() {
-  const waysToGetInvolved = [
-    {
-      icon: Users,
-      title: "Volunteer",
-      description: "Join our team of dedicated volunteers working on drives and initiatives in your area or virtually.",
-      details: [
-        "Participate in local drives and events",
-        "Help with planning and coordination",
-        "Contribute your skills and expertise",
-        "Make a direct impact in communities",
-      ],
-    },
-    {
-      icon: Heart,
-      title: "Donate",
-      description: "Support our initiatives financially. Every contribution helps us create real, measurable impact.",
-      details: [
-        "One-time or recurring donations",
-        "Sponsor specific drives or programs",
-        "Support general operations",
-        "Tax-deductible contributions",
-      ],
-    },
-    {
-      icon: Mail,
-      title: "Partner",
-      description: "Are you an organization, school, or business? Partner with us to amplify our impact.",
-      details: [
-        "Organizational partnerships",
-        "Corporate sponsorships",
-        "School collaborations",
-        "Community partnerships",
-      ],
-    },
-    {
-      icon: Calendar,
-      title: "Start a Drive",
-      description: "Have an idea for a new initiative? We can help you plan, execute, and measure impact.",
-      details: [
-        "Submit your drive proposal",
-        "Get support with planning",
-        "Access our network and resources",
-        "Track and report your impact",
-      ],
-    },
-  ];
-
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative py-20 sm:py-28 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.12)_45%,transparent_70%)] pointer-events-none" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">Get Involved</h1>
-            <p className="text-xl text-white/90">
-              Join us in creating real, measurable impact. Whether you want to volunteer, donate, partner, or start your own initiative—we&apos;d love to have you on board.
-            </p>
-          </div>
+    <div>
+      <section className="border-b-2 border-ink">
+        <div className="container mx-auto px-4 pb-12 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8">
+          <h1 className="max-w-[14ch] font-display text-poster font-extrabold text-ink">
+            Four ways to help
+          </h1>
+          <p className="mt-8 max-w-reading text-lg leading-relaxed text-muted-foreground">
+            None of them require a commitment longer than a day, and the one we
+            need most costs nothing at all.
+          </p>
         </div>
       </section>
 
-      {/* Ways to Get Involved */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            {waysToGetInvolved.map((way, index) => (
-              <motion.div
-                key={way.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="h-full">
-                  <CardHeader>
-                    <way.icon className="h-8 w-8 text-primary mb-4" />
-                    <CardTitle>{way.title}</CardTitle>
-                    <CardDescription>{way.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {way.details.map((detail, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <ArrowRight className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
-                          <span>{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How to Start */}
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-3xl font-bold text-center">How to Get Started</h2>
-            <Card>
-              <CardContent className="pt-6">
-                <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold">
-                      1
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">Reach Out</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Contact us through our contact form or email to let us know how you&apos;d like to get involved.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold">
-                      2
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">Learn More</h3>
-                      <p className="text-sm text-muted-foreground">
-                        We&apos;ll connect you with the right team member to discuss opportunities and answer your questions.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold">
-                      3
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-2">Take Action</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Once you&apos;re ready, we&apos;ll help you get started with volunteering, donating, partnering, or launching your own initiative.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold">Ready to Make a Difference?</h2>
-            <p className="text-muted-foreground">
-              Join us today and be part of creating real, measurable impact in communities worldwide.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg">
-                <Link href="/contact">Contact Us</Link>
+      <section className="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-12 md:grid-cols-2">
+          {ways.map((way) => (
+            <article key={way.title} className="border-t-2 border-ink pt-6">
+              <h2 className="font-display text-headline font-extrabold text-ink">
+                {way.title}
+              </h2>
+              <p className="mt-4 max-w-reading leading-relaxed text-muted-foreground">
+                {way.body}
+              </p>
+              <p className="mt-3 max-w-reading text-sm text-muted-foreground">
+                {way.detail}
+              </p>
+              <Button asChild variant="outline" size="sm" className="mt-6">
+                <Link href={way.href}>{way.action}</Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/donate">Donate Now</Link>
-              </Button>
-            </div>
-          </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-t-2 border-ink bg-marigold">
+        <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+          <h2 className="max-w-[20ch] font-display text-banner font-extrabold text-ink">
+            Want to run a drive at your own school?
+          </h2>
+          <p className="mt-6 max-w-reading leading-relaxed text-ink/80">
+            We&apos;ll give you everything we use — the collection plan, the
+            sorting system, the spreadsheet we track totals in, and an honest
+            account of what went wrong both times. Take it and run your own.
+          </p>
+          <Button asChild size="lg" className="mt-8">
+            <Link href="/contact">Ask us for the playbook</Link>
+          </Button>
         </div>
       </section>
     </div>

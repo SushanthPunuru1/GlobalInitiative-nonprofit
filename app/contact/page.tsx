@@ -2,17 +2,26 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, Send } from "lucide-react";
-import { motion } from "framer-motion";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjbjdol";
+
+const SUBJECTS = [
+  "I want to donate something",
+  "I want to volunteer",
+  "I know an organization that needs a drive",
+  "I want to run a drive at my school",
+  "Something else",
+];
+
+/* Inputs are printed boxes, same border and offset shadow as everything else. */
+const fieldClass =
+  "w-full rounded-sm border-2 border-ink bg-paper px-3 py-2.5 text-ink shadow-print-sm placeholder:text-muted-foreground/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 focus-visible:ring-offset-paper";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
+    subject: SUBJECTS[0],
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -28,7 +37,7 @@ export default function ContactPage() {
       });
       if (res.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({ name: "", email: "", subject: SUBJECTS[0], message: "" });
       } else {
         setStatus("error");
       }
@@ -37,194 +46,163 @@ export default function ContactPage() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative py-20 sm:py-28 bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_50%,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.12)_45%,transparent_70%)] pointer-events-none" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">Get in Touch</h1>
-            <p className="text-xl text-white/90">
-              Have questions, ideas, or want to get involved? We&apos;d love to hear from you.
-            </p>
-          </div>
+    <div>
+      <section className="border-b-2 border-ink">
+        <div className="container mx-auto px-4 pb-12 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8">
+          <h1 className="max-w-[14ch] font-display text-poster font-extrabold text-ink">
+            Say hello
+          </h1>
+          <p className="mt-8 max-w-reading text-lg leading-relaxed text-muted-foreground">
+            A real person reads these, usually within a day or two. If
+            you&apos;re writing about an organization that needs a drive, say so
+            in the subject — those go to the top of the pile.
+          </p>
         </div>
       </section>
 
-      {/* Contact Form & Info */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Contact Form */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+      <section className="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-14 md:grid-cols-[1.3fr_1fr]">
+          <div>
+            <h2 className="font-display text-headline font-extrabold text-ink">
+              Send a message
+            </h2>
+
+            <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+              <div>
+                <label htmlFor="name" className="mb-1.5 block text-sm font-semibold text-ink">
+                  Your name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={fieldClass}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-ink">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={fieldClass}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="subject" className="mb-1.5 block text-sm font-semibold text-ink">
+                  What&apos;s this about
+                </label>
+                <select
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className={fieldClass}
+                >
+                  {SUBJECTS.map((subject) => (
+                    <option key={subject} value={subject}>
+                      {subject}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="message" className="mb-1.5 block text-sm font-semibold text-ink">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={6}
+                  value={formData.message}
+                  onChange={handleChange}
+                  className={fieldClass}
+                />
+              </div>
+
+              <Button type="submit" size="lg" disabled={status === "submitting"}>
+                {status === "submitting" ? "Sending…" : "Send message"}
+              </Button>
+
+              {/*
+                Status lines say what happened and what to do next, in the
+                site's voice. The error gives a way through rather than an
+                apology.
+              */}
+              {status === "success" && (
+                <p
+                  role="status"
+                  className="rounded-sm border-2 border-ink bg-moss px-4 py-3 text-sm font-semibold text-paper"
+                >
+                  Message sent. We&apos;ll write back within a couple of days.
+                </p>
+              )}
+              {status === "error" && (
+                <p
+                  role="alert"
+                  className="rounded-sm border-2 border-ink bg-brick px-4 py-3 text-sm font-semibold text-paper"
+                >
+                  That didn&apos;t send. Email us directly at
+                  info.the.global.initiative@gmail.com and we&apos;ll pick it up
+                  there.
+                </p>
+              )}
+            </form>
+          </div>
+
+          <div className="space-y-10">
+            <div className="border-t-2 border-ink pt-5">
+              <h2 className="font-display text-xl font-extrabold text-ink">Email</h2>
+              <a
+                href="mailto:info.the.global.initiative@gmail.com"
+                className="mt-2 inline-block break-all font-semibold text-navy underline decoration-2 underline-offset-4 hover:decoration-marigold"
               >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Send Us a Message</CardTitle>
-                    <CardDescription>
-                      Fill out the form below and we&apos;ll get back to you as soon as possible.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-1">
-                          Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-1">
-                          Email *
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          required
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="subject" className="block text-sm font-medium mb-1">
-                          Subject *
-                        </label>
-                        <select
-                          id="subject"
-                          name="subject"
-                          required
-                          value={formData.subject}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        >
-                          <option value="">Select a subject</option>
-                          <option value="volunteer">Volunteering</option>
-                          <option value="donate">Donation</option>
-                          <option value="partner">Partnership</option>
-                          <option value="drive">Start a Drive</option>
-                          <option value="general">General Inquiry</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-medium mb-1">
-                          Message *
-                        </label>
-                        <textarea
-                          id="message"
-                          name="message"
-                          required
-                          rows={5}
-                          value={formData.message}
-                          onChange={handleChange}
-                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        />
-                      </div>
-                      {status === "success" && (
-                        <p className="text-sm text-green-600 font-medium">
-                          Thank you! Your message was sent. We&apos;ll get back to you soon.
-                        </p>
-                      )}
-                      {status === "error" && (
-                        <p className="text-sm text-red-600 font-medium">
-                          Something went wrong. Please try again or email us directly.
-                        </p>
-                      )}
-                      <Button type="submit" className="w-full" disabled={status === "submitting"}>
-                        <Send className="mr-2 h-4 w-4" />
-                        {status === "submitting" ? "Sending..." : "Send Message"}
-                      </Button>
-                    </form>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                info.the.global.initiative@gmail.com
+              </a>
+            </div>
 
-              {/* Contact Information */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="space-y-6"
+            <div className="border-t-2 border-ink pt-5">
+              <h2 className="font-display text-xl font-extrabold text-ink">Phone</h2>
+              <a
+                href="tel:+17065909734"
+                className="tabular mt-2 inline-block font-semibold text-navy underline decoration-2 underline-offset-4 hover:decoration-marigold"
               >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Contact Information</CardTitle>
-                    <CardDescription>
-                      Reach out to us through any of these channels.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex gap-4">
-                      <Mail className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold">Email</p>
-                        <a href="mailto:info.the.global.initiative@gmail.com" className="text-sm text-muted-foreground hover:text-primary">
-                          info.the.global.initiative@gmail.com
-                        </a>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <Phone className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold">Phone</p>
-                        <a href="tel:+17065909734" className="text-sm text-muted-foreground hover:text-primary">
-                          (706) 590-9734
-                        </a>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                (706) 590-9734
+              </a>
+            </div>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Response Time</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      We typically respond to inquiries within 24-48 hours during business days. For urgent matters, please call us directly.
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Instagram</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Follow us to stay updated on our latest drives and initiatives.
-                    </p>
-                    <Button variant="outline" size="sm" asChild>
-                      <a href="https://www.instagram.com/theglobal_initiative/" target="_blank" rel="noopener noreferrer">
-                        @theglobal_initiative
-                      </a>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
+            <div className="border-t-2 border-ink pt-5">
+              <h2 className="font-display text-xl font-extrabold text-ink">Instagram</h2>
+              <a
+                href="https://www.instagram.com/theglobal_initiative/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-block font-semibold text-navy underline decoration-2 underline-offset-4 hover:decoration-marigold"
+              >
+                @theglobal_initiative
+              </a>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Where open drives get announced first.
+              </p>
             </div>
           </div>
         </div>

@@ -1,21 +1,27 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Home } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-      <h1 className="text-6xl font-bold mb-4">404</h1>
-      <h2 className="text-2xl font-semibold mb-4">Page Not Found</h2>
-      <p className="text-muted-foreground mb-8 max-w-md">
-        The page you&apos;re looking for doesn&apos;t exist or has been moved.
+    <div className="container mx-auto flex min-h-[60vh] flex-col justify-center px-4 py-20 sm:px-6 lg:px-8">
+      <p className="tabular font-display text-poster font-extrabold leading-none text-marigold">
+        404
       </p>
-      <Button asChild>
-        <Link href="/">
-          <Home className="mr-2 h-4 w-4" />
-          Go Home
-        </Link>
-      </Button>
+      <h1 className="mt-6 max-w-[18ch] font-display text-banner font-extrabold text-ink">
+        There&apos;s nothing at this address.
+      </h1>
+      <p className="mt-6 max-w-reading leading-relaxed text-muted-foreground">
+        The page either moved or never existed. The drives are all still where
+        you left them.
+      </p>
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button asChild>
+          <Link href="/impact">See the drives</Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/">Back to the start</Link>
+        </Button>
+      </div>
     </div>
   );
 }
