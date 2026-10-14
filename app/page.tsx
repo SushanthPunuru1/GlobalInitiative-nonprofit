@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { currentDrive } from "@/data/drives";
+import { currentDrive, getImpactSummary } from "@/data/drives";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, TrendingUp, Heart, BookOpen } from "lucide-react";
@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 const HERO_TITLE = "The Global Initiative";
 
 export default function HomePage() {
+  const summary = getImpactSummary();
   const [typedTitle, setTypedTitle] = useState("");
   const [isTyping, setIsTyping] = useState(true);
 
@@ -103,8 +104,10 @@ export default function HomePage() {
               <div className="flex justify-center mb-2">
                 <Target className="h-10 w-10 text-white/90" />
               </div>
-              <div className="text-3xl sm:text-4xl font-bold">1</div>
-              <div className="text-sm font-medium text-white/90">Completed Drive</div>
+              <div className="text-3xl sm:text-4xl font-bold">{summary.totalDrives}</div>
+              <div className="text-sm font-medium text-white/90">
+                {summary.totalDrives === 1 ? "Completed Drive" : "Completed Drives"}
+              </div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -116,7 +119,7 @@ export default function HomePage() {
               <div className="flex justify-center mb-2">
                 <TrendingUp className="h-10 w-10 text-white/90" />
               </div>
-              <div className="text-3xl sm:text-4xl font-bold">$1,775</div>
+              <div className="text-3xl sm:text-4xl font-bold">${summary.totalFunds.toLocaleString()}</div>
               <div className="text-sm font-medium text-white/90">In Supplies & Resources</div>
             </motion.div>
             <motion.div
@@ -129,8 +132,8 @@ export default function HomePage() {
               <div className="flex justify-center mb-2">
                 <Heart className="h-10 w-10 text-white/90" />
               </div>
-              <div className="text-3xl sm:text-4xl font-bold">500+</div>
-              <div className="text-sm font-medium text-white/90">Clothing Items Donated</div>
+              <div className="text-3xl sm:text-4xl font-bold">560+</div>
+              <div className="text-sm font-medium text-white/90">Items Donated</div>
             </motion.div>
           </div>
         </div>

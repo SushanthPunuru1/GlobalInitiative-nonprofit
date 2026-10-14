@@ -32,6 +32,33 @@ export interface Drive {
 
 export const drives: Drive[] = [
   {
+    id: "2",
+    slug: "book-drive-2026",
+    title: "Book Drive 2026",
+    year: 2026,
+    cause: "Education",
+    location: "Local Community",
+    startDate: "2025-12-08",
+    endDate: "2026-08-02",
+    summary: "Collected over 60 books valued at more than $700 and donated them to Families Embracing Love & Grace, which distributes books to partner organizations across the United States and around the world.",
+    problem: "Access to books is one of the strongest predictors of literacy and long-term academic success, yet many children grow up in homes with few or no books of their own. Families already stretched thin by financial pressure rarely have room in the budget for reading material, and the organizations that serve them are often short on the resources needed to close that gap.",
+    actionsTaken: [
+      "Organized a community-wide book drive collecting new and gently used books",
+      "Team members gathered donations from students, families, and local community members",
+      "Sorted and organized books by reading level and age group for easier distribution",
+      "Partnered with Families Embracing Love & Grace, the same organization supported by our 2025 clothing drive",
+      "Delivered all collected books to the organization, which distributes them to partner nonprofits across the U.S. and internationally"
+    ],
+    impactMetrics: [
+      { label: "Books Collected", value: "60+" },
+      { label: "Value of Donations", value: "$700+" },
+      { label: "Distribution Reach", value: "U.S. & Global" }
+    ],
+    volunteersCount: 0,
+    fundsRaised: 700,
+    photos: []
+  },
+  {
     id: "1",
     slug: "clothing-donation-2025",
     title: "Clothing Donation Drive 2025",
@@ -109,11 +136,6 @@ export interface CurrentDrive {
   description?: string;
 }
 
-export const currentDrive: CurrentDrive | null = {
-  title: "Book Drive",
-  cause: "Education",
-  currentCount: 60,
-  goal: 150,
-  unit: "books",
-  description: "Collecting books to support literacy and learning in our community.",
-};
+// No drive is currently in progress. Set this to a CurrentDrive object to show
+// the progress banner on the home page again.
+export const currentDrive: CurrentDrive | null = null;
