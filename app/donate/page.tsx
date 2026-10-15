@@ -47,7 +47,9 @@ export default function DonatePage() {
               </a>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="/impact">See where the last $2,475 went</Link>
+              <Link href="/impact">
+                See where the last ${summary.totalFunds.toLocaleString()} went
+              </Link>
             </Button>
           </div>
         </div>

@@ -40,7 +40,7 @@ export const drives: Drive[] = [
     location: "Local Community",
     startDate: "2025-12-08",
     endDate: "2026-08-02",
-    summary: "Collected over 60 books valued at more than $700 and donated them to Families Embracing Love & Grace, which distributes books to partner organizations across the United States and around the world.",
+    summary: "Collected 64 books worth $736 and donated them to Families Embracing Love & Grace, which distributes books to partner organizations across the United States and around the world.",
     problem: "Access to books is one of the strongest predictors of literacy and long-term academic success, yet many children grow up in homes with few or no books of their own. Families already stretched thin by financial pressure rarely have room in the budget for reading material, and the organizations that serve them are often short on the resources needed to close that gap.",
     actionsTaken: [
       "Organized a community-wide book drive collecting new and gently used books",
@@ -50,12 +50,12 @@ export const drives: Drive[] = [
       "Delivered all collected books to the organization, which distributes them to partner nonprofits across the U.S. and internationally"
     ],
     impactMetrics: [
-      { label: "Books Collected", value: "60+" },
-      { label: "Value of Donations", value: "$700+" },
+      { label: "Books Collected", value: 64 },
+      { label: "Value of Donations", value: "$736" },
       { label: "Distribution Reach", value: "U.S. & Global" }
     ],
     volunteersCount: 0,
-    fundsRaised: 700,
+    fundsRaised: 736,
     photos: []
   },
   {
