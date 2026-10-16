@@ -74,7 +74,9 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t-2 border-paper/25 pt-6">
-          <p className="text-sm text-paper/70">© {year} The Global Initiative</p>
+          <p className="text-sm text-paper/70">
+            © {year} The Global Initiative · Website built by Sushanth Punuru, CTO
+          </p>
         </div>
       </div>
     </footer>
